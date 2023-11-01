@@ -157,11 +157,7 @@
 {{- if .Values.externalServices.prometheus.secret.name }}
   {{- .Values.externalServices.prometheus.secret.name }}
 {{- else }}
-  {{- if contains .Chart.Name .Release.Name }}
-    {{- printf "prometheus-%s" .Chart.Name | trunc 63 | trimSuffix "-" }}
-  {{- else }}
-    {{- printf "prometheus-%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
-  {{- end }}
+  {{- printf "prometheus-%s" .Chart.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
 
@@ -169,11 +165,7 @@
 {{- if .Values.externalServices.loki.secret.name }}
   {{- .Values.externalServices.loki.secret.name }}
 {{- else }}
-  {{- if contains .Chart.Name .Release.Name }}
-    {{- printf "loki-%s" .Chart.Name | trunc 63 | trimSuffix "-" }}
-  {{- else }}
-    {{- printf "loki-%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
-  {{- end }}
+  {{- printf "loki-%s" .Chart.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
 
@@ -181,10 +173,6 @@
 {{- if .Values.externalServices.tempo.secret.name }}
   {{- .Values.externalServices.tempo.secret.name }}
 {{- else }}
-  {{- if contains .Chart.Name .Release.Name }}
-    {{- printf "tempo-%s" .Chart.Name | trunc 63 | trimSuffix "-" }}
-  {{- else }}
-    {{- printf "tempo-%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }}
-  {{- end }}
+  {{- printf "tempo-%s" .Chart.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}

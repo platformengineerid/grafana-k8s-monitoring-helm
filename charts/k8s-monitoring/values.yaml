@@ -788,11 +788,11 @@ opencost:
 
     prometheus:
       # @ignored -- This skips including these values in README.md
-      secret_name: grafana-agent-credentials
+      secret_name: prometheus-k8s-monitoring
       # @ignored -- This skips including these values in README.md
-      username_key: prometheus_username
+      username_key: username
       # @ignored -- This skips including these values in README.md
-      password_key: prometheus_password
+      password_key: password
       external:
         # @ignored -- This skips including these values in README.md
         enabled: true
