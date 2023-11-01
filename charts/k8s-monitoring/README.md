@@ -84,17 +84,29 @@ The Prometheus and Loki services may be hosted on the same cluster, or remotely 
 | cluster.kubernetesAPIService | string | `"kubernetes.default.svc.cluster.local:443"` | The Kubernetes service. Change this if your cluster DNS is configured differently than the default. |
 | cluster.name | string | `""` | (required) The name of this cluster, which will be set in all labels |
 | cluster.platform | string | `""` | The specific platform for this cluster. Will enable compatibility changes for some platforms. Supported options: (empty) or "openshift". |
-| externalServices.loki.basicAuth.password | string | `""` | Loki basic auth password |
-| externalServices.loki.basicAuth.username | string | `""` | Loki basic auth username |
+| externalServices.loki.authMode | string | `"basic"` | one of "none", "basic" |
+| externalServices.loki.basicAuth.password | string | `""` | Prometheus basic auth password |
+| externalServices.loki.basicAuth.passwordKey | string | `"password"` | The key for the password property in the secret |
+| externalServices.loki.basicAuth.username | string | `""` | Prometheus basic auth username |
+| externalServices.loki.basicAuth.usernameKey | string | `"username"` | The key for the username property in the secret |
 | externalServices.loki.externalLabels | object | `{}` | Custom labels to be added to all logs and events |
 | externalServices.loki.host | string | `""` | (required) Loki host where logs and events will be sent |
+| externalServices.loki.hostKey | string | `"host"` | The key for the host property in the secret |
 | externalServices.loki.proxyURL | string | `""` | HTTP proxy to proxy requests to Loki through. |
+| externalServices.loki.secret.create | bool | `true` | Should this Helm chart create the secret. If false, you must define the name and namespace values. |
+| externalServices.loki.secret.name | string | `""` | The name of the secret. |
+| externalServices.loki.secret.namespace | string | `""` | The namespace of the secret. |
 | externalServices.loki.tenantId | string | `""` | (optional) Loki tenant ID |
+| externalServices.loki.tenantIdKey | string | `"tenantId"` | The key for the tenant ID property in the secret |
 | externalServices.loki.writeEndpoint | string | `"/loki/api/v1/push"` | Loki logs write endpoint |
+| externalServices.prometheus.authMode | string | `"basic"` | one of "none", "basic" |
 | externalServices.prometheus.basicAuth.password | string | `""` | Prometheus basic auth password |
+| externalServices.prometheus.basicAuth.passwordKey | string | `"password"` | The key for the password property in the secret |
 | externalServices.prometheus.basicAuth.username | string | `""` | Prometheus basic auth username |
+| externalServices.prometheus.basicAuth.usernameKey | string | `"username"` | The key for the username property in the secret |
 | externalServices.prometheus.externalLabels | object | `{}` | Custom labels to be added to all time series |
 | externalServices.prometheus.host | string | `""` | (required) Prometheus host where metrics will be sent |
+| externalServices.prometheus.hostKey | string | `"host"` | The key for the host property in the secret |
 | externalServices.prometheus.processors.batch.maxSize | int | `0` | Upper limit of a batch size. When set to 0, there is no upper limit. |
 | externalServices.prometheus.processors.batch.size | int | `8192` | Amount of data to buffer before flushing the batch. |
 | externalServices.prometheus.processors.batch.timeout | string | `"2s"` | How long to wait before flushing the batch. |
@@ -104,15 +116,27 @@ The Prometheus and Loki services may be hosted on the same cluster, or remotely 
 | externalServices.prometheus.protocol | string | `"remote_write"` | The type of server protocol for writing metrics Options:   * "remote_write" will use Prometheus Remote Write   * "otlp" will use OTLP   * "otlphttp" will use OTLP HTTP |
 | externalServices.prometheus.proxyURL | string | `""` | HTTP proxy to proxy requests to Prometheus through. |
 | externalServices.prometheus.queryEndpoint | string | `"/api/prom/api/v1/query"` | Prometheus metrics query endpoint. Preset for Grafana Cloud Metrics instances. |
+| externalServices.prometheus.secret.create | bool | `true` | Should this Helm chart create the secret. If false, you must define the name and namespace values. |
+| externalServices.prometheus.secret.name | string | `""` | The name of the secret. |
+| externalServices.prometheus.secret.namespace | string | `""` | The namespace of the secret. |
 | externalServices.prometheus.tenantId | string | `""` | (optional) Sets the X-Scope-OrgID header when sending metrics |
+| externalServices.prometheus.tenantIdKey | string | `"tenantId"` | The key for the tenant ID property in the secret |
 | externalServices.prometheus.tls | object | `{}` | TLS setting to configure for the metrics service. For remoteWrite protocol, refer to https://grafana.com/docs/agent/latest/flow/reference/components/prometheus.remote_write/#tls_config-block For otlp protocol, refer to https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.exporter.otlp/#tls-block For otlphttp protocol, refer to https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.exporter.otlphttp/#tls-block |
 | externalServices.prometheus.writeEndpoint | string | `"/api/prom/push"` | Prometheus metrics write endpoint. Preset for Grafana Cloud Metrics instances. |
 | externalServices.prometheus.writeRelabelConfigRules | string | `nil` | Rule blocks to be added to the write_relabel_config block of the prometheus.remote_write component. See https://grafana.com/docs/agent/latest/flow/reference/components/prometheus.remote_write/#write_relabel_config-block |
-| externalServices.tempo.basicAuth.password | string | `""` | Tempo basic auth password |
-| externalServices.tempo.basicAuth.username | string | `""` | Tempo basic auth username |
+| externalServices.tempo.authMode | string | `"basic"` | one of "none", "basic" |
+| externalServices.tempo.basicAuth.password | string | `""` | Prometheus basic auth password |
+| externalServices.tempo.basicAuth.passwordKey | string | `"password"` | The key for the password property in the secret |
+| externalServices.tempo.basicAuth.username | string | `""` | Prometheus basic auth username |
+| externalServices.tempo.basicAuth.usernameKey | string | `"username"` | The key for the username property in the secret |
 | externalServices.tempo.host | string | `""` | (required) Tempo host where traces will be sent |
+| externalServices.tempo.hostKey | string | `"host"` | The key for the host property in the secret |
 | externalServices.tempo.protocol | string | `"otlp"` | The type of server protocol for writing metrics Options:   * "otlp" will use OTLP   * "otlphttp" will use OTLP HTTP |
+| externalServices.tempo.secret.create | bool | `true` | Should this Helm chart create the secret. If false, you must define the name and namespace values. |
+| externalServices.tempo.secret.name | string | `""` | The name of the secret. |
+| externalServices.tempo.secret.namespace | string | `""` | The namespace of the secret. |
 | externalServices.tempo.tenantId | string | `""` | (optional) Tempo tenant ID |
+| externalServices.tempo.tenantIdKey | string | `"tenantId"` | The key for the tenant ID property in the secret |
 | externalServices.tempo.tlsOptions | string | `""` | Define the TLS block. See https://grafana.com/docs/agent/latest/flow/reference/components/otelcol.exporter.otlp/#tls-block for options. Example: tlsOptions: insecure = true |
 | extraConfig | string | `nil` | Extra configuration that will be added to the Grafana Agent configuration file. See [Adding custom Flow configuration](#adding-custom-flow-configuration) for an example. |
 | global.image.pullSecrets | list | `[]` | Optional set of global image pull secrets. |

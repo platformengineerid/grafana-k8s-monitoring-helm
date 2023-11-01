@@ -60,14 +60,15 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: grafana-agent-credentials
+  name: prometheus-k8smon-k8s-monitoring
   namespace: default
 type: Opaque
 data:
-  prometheus_host: "aHR0cHM6Ly9wcm9tZXRoZXVzLmV4YW1wbGUuY29t"
-  prometheus_username: "MTIzNDU="
-  prometheus_password: "SXQncyBhIHNlY3JldCB0byBldmVyeW9uZQ=="
-  prometheus_tenantId: "MTAwMA=="
+
+  host: "aHR0cHM6Ly9wcm9tZXRoZXVzLmV4YW1wbGUuY29t"
+  username: "MTIzNDU="
+  password: "SXQncyBhIHNlY3JldCB0byBldmVyeW9uZQ=="
+  tenantId: "MTAwMA=="
 ---
 # Source: k8s-monitoring/templates/grafana-agent-config.yaml
 apiVersion: v1
@@ -412,21 +413,9 @@ data:
     }
     
     // Metrics Service
-    local.file "prometheus_host" {
-      filename  = "/etc/grafana-agent-credentials/prometheus_host"
-    }
-    
-    local.file "prometheus_username" {
-      filename  = "/etc/grafana-agent-credentials/prometheus_username"
-    }
-    
-    local.file "prometheus_password" {
-      filename  = "/etc/grafana-agent-credentials/prometheus_password"
-      is_secret = true
-    }
-    
-    local.file "prometheus_tenantid" {
-      filename  = "/etc/grafana-agent-credentials/prometheus_tenantId"
+    remote.kubernetes.secret "metrics_service" {
+      name = prometheus-k8smon-k8s-monitoring
+      namespace = default
     }
     
     prometheus.relabel "metrics_service" {
@@ -435,12 +424,12 @@ data:
     
     prometheus.remote_write "metrics_service" {
       endpoint {
-        url = nonsensitive(local.file.prometheus_host.content) + "/api/prom/push"
-        headers = { "X-Scope-OrgID" = local.file.prometheus_tenantid.content }
+        url = nonsensitive(remote.kubernetes.secret.metrics_service.data[host]) + "/api/prom/push"
+        headers = { "X-Scope-OrgID" = remote.kubernetes.secret.metrics_service.data[tenantId] }
     
         basic_auth {
-          username = local.file.prometheus_username.content
-          password = local.file.prometheus_password.content
+          username = remote.kubernetes.secret.metrics_service.data[username]
+          password = remote.kubernetes.secret.metrics_service.data[password]
         }
     
       }
@@ -42486,7 +42475,7 @@ spec:
       serviceAccountName: k8smon-grafana-agent
       containers:
         - name: grafana-agent
-          image: docker.io/grafana/agent:v0.37.4
+          image: docker.io/grafana/agent:latest
           imagePullPolicy: IfNotPresent
           args:
             - run
@@ -42516,9 +42505,6 @@ spec:
             - name: config
               mountPath: /etc/agent
             -
-              mountPath: /etc/grafana-agent-credentials
-              name: grafana-agent-credentials
-            -
               mountPath: /etc/kubernetes-monitoring-telemetry
               name: kubernetes-monitoring-telemetry
         - name: config-reloader
@@ -42540,9 +42526,6 @@ spec:
         - name: config
           configMap:
             name: k8smon-grafana-agent
-        - name: grafana-agent-credentials
-          secret:
-            secretName: grafana-agent-credentials
         - configMap:
             name: kubernetes-monitoring-telemetry
           name: kubernetes-monitoring-telemetry
@@ -42929,21 +42912,9 @@ data:
     }
     
     // Metrics Service
-    local.file "prometheus_host" {
-      filename  = "/etc/grafana-agent-credentials/prometheus_host"
-    }
-    
-    local.file "prometheus_username" {
-      filename  = "/etc/grafana-agent-credentials/prometheus_username"
-    }
-    
-    local.file "prometheus_password" {
-      filename  = "/etc/grafana-agent-credentials/prometheus_password"
-      is_secret = true
-    }
-    
-    local.file "prometheus_tenantid" {
-      filename  = "/etc/grafana-agent-credentials/prometheus_tenantId"
+    remote.kubernetes.secret "metrics_service" {
+      name = prometheus-k8smon-k8s-monitoring
+      namespace = default
     }
     
     prometheus.relabel "metrics_service" {
@@ -42952,12 +42923,12 @@ data:
     
     prometheus.remote_write "metrics_service" {
       endpoint {
-        url = nonsensitive(local.file.prometheus_host.content) + "/api/prom/push"
-        headers = { "X-Scope-OrgID" = local.file.prometheus_tenantid.content }
+        url = nonsensitive(remote.kubernetes.secret.metrics_service.data[host]) + "/api/prom/push"
+        headers = { "X-Scope-OrgID" = remote.kubernetes.secret.metrics_service.data[tenantId] }
     
         basic_auth {
-          username = local.file.prometheus_username.content
-          password = local.file.prometheus_password.content
+          username = remote.kubernetes.secret.metrics_service.data[username]
+          password = remote.kubernetes.secret.metrics_service.data[password]
         }
     
       }
@@ -43109,7 +43080,7 @@ spec:
         kubernetes.io/os: linux
       containers:
         - name: grafana-agent
-          image: "docker.io/grafana/agent:v0.37.4"
+          image: "docker.io/grafana/agent:latest"
           command:
           - bash
           - -ec
