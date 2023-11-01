@@ -414,8 +414,8 @@ data:
     
     // Metrics Service
     remote.kubernetes.secret "metrics_service" {
-      name = prometheus-k8smon-k8s-monitoring
-      namespace = default
+      name = "prometheus-k8smon-k8s-monitoring"
+      namespace = "default"
     }
     
     prometheus.relabel "metrics_service" {
@@ -42913,8 +42913,8 @@ data:
     
     // Metrics Service
     remote.kubernetes.secret "metrics_service" {
-      name = prometheus-k8smon-k8s-monitoring
-      namespace = default
+      name = "prometheus-k8smon-k8s-monitoring"
+      namespace = "default"
     }
     
     prometheus.relabel "metrics_service" {

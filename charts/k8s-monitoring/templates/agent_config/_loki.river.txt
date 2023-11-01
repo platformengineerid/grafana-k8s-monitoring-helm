@@ -1,8 +1,8 @@
 {{ define "agent.config.loki" }}
 // Loki
 remote.kubernetes.secret "logs_service" {
-  name = {{ include "kubernetes_monitoring.logs_service.secret.name" . }}
-  namespace = {{ .Values.externalServices.loki.secret.namespace | default .Release.Namespace }}
+  name = {{ include "kubernetes_monitoring.logs_service.secret.name" . | quote}}
+  namespace = {{ .Values.externalServices.loki.secret.namespace | default .Release.Namespace | quote }}
 }
 
 {{- with .Values.externalServices.loki }}

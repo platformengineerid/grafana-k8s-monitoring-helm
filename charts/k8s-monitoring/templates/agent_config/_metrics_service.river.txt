@@ -1,8 +1,8 @@
 {{ define "agent.config.metricsService" }}
 // Metrics Service
 remote.kubernetes.secret "metrics_service" {
-  name = {{ include "kubernetes_monitoring.metrics_service.secret.name" . }}
-  namespace = {{ .Values.externalServices.prometheus.secret.namespace | default .Release.Namespace }}
+  name = {{ include "kubernetes_monitoring.metrics_service.secret.name" . | quote }}
+  namespace = {{ .Values.externalServices.prometheus.secret.namespace | default .Release.Namespace | quote }}
 }
 
 prometheus.relabel "metrics_service" {

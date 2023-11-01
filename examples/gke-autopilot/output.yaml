@@ -382,8 +382,8 @@ data:
     
     // Metrics Service
     remote.kubernetes.secret "metrics_service" {
-      name = prometheus-k8smon-k8s-monitoring
-      namespace = default
+      name = "prometheus-k8smon-k8s-monitoring"
+      namespace = "default"
     }
     
     prometheus.relabel "metrics_service" {
@@ -414,8 +414,8 @@ data:
     
     // Loki
     remote.kubernetes.secret "logs_service" {
-      name = loki-k8smon-k8s-monitoring
-      namespace = default
+      name = "loki-k8smon-k8s-monitoring"
+      namespace = "default"
     }
     loki.write "grafana_cloud_loki" {
       endpoint {
@@ -538,8 +538,8 @@ data:
     
     // Loki
     remote.kubernetes.secret "logs_service" {
-      name = loki-k8smon-k8s-monitoring
-      namespace = default
+      name = "loki-k8smon-k8s-monitoring"
+      namespace = "default"
     }
     loki.write "grafana_cloud_loki" {
       endpoint {
@@ -43063,8 +43063,8 @@ data:
     
     // Metrics Service
     remote.kubernetes.secret "metrics_service" {
-      name = prometheus-k8smon-k8s-monitoring
-      namespace = default
+      name = "prometheus-k8smon-k8s-monitoring"
+      namespace = "default"
     }
     
     prometheus.relabel "metrics_service" {
@@ -43095,8 +43095,8 @@ data:
     
     // Loki
     remote.kubernetes.secret "logs_service" {
-      name = loki-k8smon-k8s-monitoring
-      namespace = default
+      name = "loki-k8smon-k8s-monitoring"
+      namespace = "default"
     }
     loki.write "grafana_cloud_loki" {
       endpoint {
@@ -43211,8 +43211,8 @@ data:
     
     // Loki
     remote.kubernetes.secret "logs_service" {
-      name = loki-k8smon-k8s-monitoring
-      namespace = default
+      name = "loki-k8smon-k8s-monitoring"
+      namespace = "default"
     }
     loki.write "grafana_cloud_loki" {
       endpoint {
