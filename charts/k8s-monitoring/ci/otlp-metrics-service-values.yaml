@@ -3,10 +3,10 @@ cluster:
 
 externalServices:
   prometheus:
-    host: https://prometheus-server.prometheus.svc:80
-    basicAuth:
-      username: promuser
-      password: prometheuspassword
+    secret:
+      create: false
+      name: prometheus
+      namespace: prometheus
     queryEndpoint: /api/v1/query
     writeEndpoint: /api/v1/otlp
     protocol: otlphttp

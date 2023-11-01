@@ -3,10 +3,10 @@ cluster:
 
 externalServices:
   prometheus:
-    host: https://prometheus-server.prometheus.svc:80
-    basicAuth:
-      username: promuser
-      password: prometheuspassword
+    secret:
+      create: false
+      name: prometheus
+      namespace: prometheus
     queryEndpoint: /api/v1/query
     writeEndpoint: /api/v1/write
     tls:
@@ -52,10 +52,12 @@ test:
     type: logql
 
 opencost:
-  opencost:
-    prometheus:
-      external:
-        url: http://prometheus-server.prometheus.svc:80/api/v1
+  prometheus:
+    secret_name: prometheus
+    username_key: username
+    password_key: password
+    external:
+      url: http://prometheus-server.prometheus.svc:80/api/v1
 
 grafana-agent:
   agent:

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: prometheus
+  namespace: prometheus
+type: Opaque
+stringData:
+  host: "https://prometheus-server.prometheus.svc:80"
+  username: "promuser"
+  password: "prometheuspassword"

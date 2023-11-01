@@ -64,9 +64,6 @@
                 },
                 "prometheus": {
                     "type": "object",
-                    "required": [
-                        "host"
-                    ],
                     "properties": {
                         "basicAuth": {
                             "type": "object",
