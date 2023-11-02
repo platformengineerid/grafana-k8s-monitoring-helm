@@ -6,7 +6,6 @@ externalServices:
     secret:
       create: false
       name: prometheus
-      namespace: prometheus
     queryEndpoint: /api/v1/query
     writeEndpoint: /api/v1/write
     tls:

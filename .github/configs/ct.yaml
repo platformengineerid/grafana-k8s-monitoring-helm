@@ -12,3 +12,4 @@ validate-maintainers: true
 validate-yaml: true
 exclude-deprecated: true
 excluded-charts: []
+namespace: monitoring  # Need to set the namespace because we create the secret there
