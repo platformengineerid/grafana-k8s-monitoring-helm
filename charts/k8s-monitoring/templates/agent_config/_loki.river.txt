@@ -8,17 +8,17 @@ remote.kubernetes.secret "logs_service" {
 {{- with .Values.externalServices.loki }}
 loki.write "grafana_cloud_loki" {
   endpoint {
-    url = nonsensitive(remote.kubernetes.secret.logs_service.data[{{ .hostKey }}]) + "{{ .writeEndpoint }}"
+    url = nonsensitive(remote.kubernetes.secret.logs_service.data[{{ .hostKey | quote }}]) + "{{ .writeEndpoint }}"
 {{- if .tenantId }}
-    tenant_id = remote.kubernetes.secret.logs_service.data[{{ .tenantIdKey }}]
+    tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data[{{ .tenantIdKey | quote }}])
 {{- end }}
 {{- if .proxyURL }}
     proxy_url = {{ .proxyURL | quote }}
 {{- end }}
 {{ if eq .authMode "basic" }}
     basic_auth {
-      username = remote.kubernetes.secret.logs_service.data[{{ .basicAuth.usernameKey }}]
-      password = remote.kubernetes.secret.logs_service.data[{{ .basicAuth.passwordKey }}]
+      username = nonsensitive(remote.kubernetes.secret.logs_service.data[{{ .basicAuth.usernameKey | quote }}])
+      password = remote.kubernetes.secret.logs_service.data[{{ .basicAuth.passwordKey | quote }}]
     }
 {{- end }}
   }

@@ -8,8 +8,8 @@ remote.kubernetes.secret "traces_service" {
 {{- with .Values.externalServices.tempo }}
 {{ if eq .authMode "basic" }}
 otelcol.auth.basic "tempo" {
-  username = remote.kubernetes.secret.traces_service.data[{{ .basicAuth.usernameKey }}]
-  password = remote.kubernetes.secret.traces_service.data[{{ .basicAuth.passwordKey }}]
+  username = nonsensitive(remote.kubernetes.secret.traces_service.data[{{ .basicAuth.usernameKey | quote }}])
+  password = remote.kubernetes.secret.traces_service.data[{{ .basicAuth.passwordKey | quote }}]
 }
 {{- end }}
 {{ if eq .protocol "otlp" }}
@@ -18,11 +18,11 @@ otelcol.exporter.otlp "tempo" {
 otelcol.exporter.otlphttp "tempo" {
 {{- end }}
   client {
-    endpoint = nonsensitive(remote.kubernetes.secret.traces_service.data[{{ .hostKey }}])
+    endpoint = nonsensitive(remote.kubernetes.secret.traces_service.data[{{ .hostKey | quote }}])
 {{ if eq .authMode "basic" }}
     auth = otelcol.auth.basic.tempo.handler
 {{- end }}
-    headers = { "X-Scope-OrgID" = remote.kubernetes.secret.traces_service.data[{{ .tenantIdKey }}] }
+    headers = { "X-Scope-OrgID" = remote.kubernetes.secret.traces_service.data[{{ .tenantIdKey | quote }}] }
 {{- if .tlsOptions }}
     tls {
 {{ .tlsOptions | indent 6 }}

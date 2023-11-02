@@ -51,12 +51,13 @@ test:
     type: logql
 
 opencost:
-  prometheus:
-    secret_name: prometheus
-    username_key: username
-    password_key: password
-    external:
-      url: http://prometheus-server.prometheus.svc:80/api/v1
+  opencost:
+    prometheus:
+      secret_name: prometheus
+      username_key: username
+      password_key: password
+      external:
+        url: http://prometheus-server.prometheus.svc:80/api/v1
 
 grafana-agent:
   agent:

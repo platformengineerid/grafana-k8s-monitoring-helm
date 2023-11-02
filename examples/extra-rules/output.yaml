@@ -487,11 +487,11 @@ data:
     
     prometheus.remote_write "metrics_service" {
       endpoint {
-        url = nonsensitive(remote.kubernetes.secret.metrics_service.data[host]) + "/api/prom/push"
+        url = nonsensitive(remote.kubernetes.secret.metrics_service.data["host"]) + "/api/prom/push"
     
         basic_auth {
-          username = remote.kubernetes.secret.metrics_service.data[username]
-          password = remote.kubernetes.secret.metrics_service.data[password]
+          username = nonsensitive(remote.kubernetes.secret.metrics_service.data["username"])
+          password = remote.kubernetes.secret.metrics_service.data["password"]
         }
     
         write_relabel_config {
@@ -520,12 +520,12 @@ data:
     }
     loki.write "grafana_cloud_loki" {
       endpoint {
-        url = nonsensitive(remote.kubernetes.secret.logs_service.data[host]) + "/loki/api/v1/push"
-        tenant_id = remote.kubernetes.secret.logs_service.data[tenantId]
+        url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+        tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
     
         basic_auth {
-          username = remote.kubernetes.secret.logs_service.data[username]
-          password = remote.kubernetes.secret.logs_service.data[password]
+          username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
+          password = remote.kubernetes.secret.logs_service.data["password"]
         }
       }
       external_labels = {
@@ -669,12 +669,12 @@ data:
     }
     loki.write "grafana_cloud_loki" {
       endpoint {
-        url = nonsensitive(remote.kubernetes.secret.logs_service.data[host]) + "/loki/api/v1/push"
-        tenant_id = remote.kubernetes.secret.logs_service.data[tenantId]
+        url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+        tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
     
         basic_auth {
-          username = remote.kubernetes.secret.logs_service.data[username]
-          password = remote.kubernetes.secret.logs_service.data[password]
+          username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
+          password = remote.kubernetes.secret.logs_service.data["password"]
         }
       }
       external_labels = {
@@ -43420,11 +43420,11 @@ data:
     
     prometheus.remote_write "metrics_service" {
       endpoint {
-        url = nonsensitive(remote.kubernetes.secret.metrics_service.data[host]) + "/api/prom/push"
+        url = nonsensitive(remote.kubernetes.secret.metrics_service.data["host"]) + "/api/prom/push"
     
         basic_auth {
-          username = remote.kubernetes.secret.metrics_service.data[username]
-          password = remote.kubernetes.secret.metrics_service.data[password]
+          username = nonsensitive(remote.kubernetes.secret.metrics_service.data["username"])
+          password = remote.kubernetes.secret.metrics_service.data["password"]
         }
     
         write_relabel_config {
@@ -43453,12 +43453,12 @@ data:
     }
     loki.write "grafana_cloud_loki" {
       endpoint {
-        url = nonsensitive(remote.kubernetes.secret.logs_service.data[host]) + "/loki/api/v1/push"
-        tenant_id = remote.kubernetes.secret.logs_service.data[tenantId]
+        url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+        tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
     
         basic_auth {
-          username = remote.kubernetes.secret.logs_service.data[username]
-          password = remote.kubernetes.secret.logs_service.data[password]
+          username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
+          password = remote.kubernetes.secret.logs_service.data["password"]
         }
       }
       external_labels = {
@@ -43594,12 +43594,12 @@ data:
     }
     loki.write "grafana_cloud_loki" {
       endpoint {
-        url = nonsensitive(remote.kubernetes.secret.logs_service.data[host]) + "/loki/api/v1/push"
-        tenant_id = remote.kubernetes.secret.logs_service.data[tenantId]
+        url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+        tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
     
         basic_auth {
-          username = remote.kubernetes.secret.logs_service.data[username]
-          password = remote.kubernetes.secret.logs_service.data[password]
+          username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
+          password = remote.kubernetes.secret.logs_service.data["password"]
         }
       }
       external_labels = {

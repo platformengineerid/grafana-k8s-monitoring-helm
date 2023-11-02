@@ -344,11 +344,11 @@ prometheus.relabel "metrics_service" {
 
 prometheus.remote_write "metrics_service" {
   endpoint {
-    url = nonsensitive(remote.kubernetes.secret.metrics_service.data[host]) + "/api/prom/push"
+    url = nonsensitive(remote.kubernetes.secret.metrics_service.data["host"]) + "/api/prom/push"
 
     basic_auth {
-      username = remote.kubernetes.secret.metrics_service.data[username]
-      password = remote.kubernetes.secret.metrics_service.data[password]
+      username = nonsensitive(remote.kubernetes.secret.metrics_service.data["username"])
+      password = remote.kubernetes.secret.metrics_service.data["password"]
     }
 
   }
@@ -371,11 +371,11 @@ remote.kubernetes.secret "logs_service" {
 }
 loki.write "grafana_cloud_loki" {
   endpoint {
-    url = nonsensitive(remote.kubernetes.secret.logs_service.data[host]) + "/loki/api/v1/push"
+    url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
 
     basic_auth {
-      username = remote.kubernetes.secret.logs_service.data[username]
-      password = remote.kubernetes.secret.logs_service.data[password]
+      username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
+      password = remote.kubernetes.secret.logs_service.data["password"]
     }
   }
   external_labels = {
@@ -432,15 +432,15 @@ remote.kubernetes.secret "traces_service" {
 }
 
 otelcol.auth.basic "tempo" {
-  username = remote.kubernetes.secret.traces_service.data[username]
-  password = remote.kubernetes.secret.traces_service.data[password]
+  username = nonsensitive(remote.kubernetes.secret.traces_service.data["username"])
+  password = remote.kubernetes.secret.traces_service.data["password"]
 }
 
 otelcol.exporter.otlp "tempo" {
   client {
-    endpoint = nonsensitive(remote.kubernetes.secret.traces_service.data[host])
+    endpoint = nonsensitive(remote.kubernetes.secret.traces_service.data["host"])
 
     auth = otelcol.auth.basic.tempo.handler
-    headers = { "X-Scope-OrgID" = remote.kubernetes.secret.traces_service.data[tenantId] }
+    headers = { "X-Scope-OrgID" = remote.kubernetes.secret.traces_service.data["tenantId"] }
   }
 }

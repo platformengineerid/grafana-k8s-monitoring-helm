@@ -2,17 +2,17 @@
 {{- with .Values.externalServices.prometheus }}
 prometheus.remote_write "metrics_service" {
   endpoint {
-    url = nonsensitive(remote.kubernetes.secret.metrics_service.data[{{ .hostKey }}]) + "{{ .writeEndpoint }}"
+    url = nonsensitive(remote.kubernetes.secret.metrics_service.data[{{ .hostKey | quote }}]) + "{{ .writeEndpoint }}"
 {{- if .tenantId }}
-    headers = { "X-Scope-OrgID" = remote.kubernetes.secret.metrics_service.data[{{ .tenantIdKey }}] }
+    headers = { "X-Scope-OrgID" = remote.kubernetes.secret.metrics_service.data[{{ .tenantIdKey | quote }}] }
 {{- end }}
 {{- if .proxyURL }}
     proxy_url = {{ .proxyURL | quote }}
 {{- end }}
 {{ if eq .authMode "basic" }}
     basic_auth {
-      username = remote.kubernetes.secret.metrics_service.data[{{ .basicAuth.usernameKey }}]
-      password = remote.kubernetes.secret.metrics_service.data[{{ .basicAuth.passwordKey }}]
+      username = nonsensitive(remote.kubernetes.secret.metrics_service.data[{{ .basicAuth.usernameKey | quote }}])
+      password = remote.kubernetes.secret.metrics_service.data[{{ .basicAuth.passwordKey | quote }}]
     }
 {{- end }}
 {{ if .writeRelabelConfigRules }}

@@ -344,11 +344,11 @@ prometheus.relabel "metrics_service" {
 
 prometheus.remote_write "metrics_service" {
   endpoint {
-    url = nonsensitive(remote.kubernetes.secret.metrics_service.data[host]) + "/api/prom/push"
+    url = nonsensitive(remote.kubernetes.secret.metrics_service.data["host"]) + "/api/prom/push"
 
     basic_auth {
-      username = remote.kubernetes.secret.metrics_service.data[username]
-      password = remote.kubernetes.secret.metrics_service.data[password]
+      username = nonsensitive(remote.kubernetes.secret.metrics_service.data["username"])
+      password = remote.kubernetes.secret.metrics_service.data["password"]
     }
 
   }
