@@ -379,7 +379,7 @@ prometheus.relabel "servicemonitors" {
 
 // Metrics Service
 remote.kubernetes.secret "metrics_service" {
-  name = "prometheus-k8smon-k8s-monitoring"
+  name = "prometheus-k8s-monitoring"
   namespace = "default"
 }
 
@@ -412,7 +412,7 @@ loki.source.kubernetes_events "cluster_events" {
 
 // Loki
 remote.kubernetes.secret "logs_service" {
-  name = "loki-k8smon-k8s-monitoring"
+  name = "loki-k8s-monitoring"
   namespace = "default"
 }
 loki.write "grafana_cloud_loki" {

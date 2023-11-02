@@ -72,7 +72,7 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: prometheus-k8smon-k8s-monitoring
+  name: prometheus-k8s-monitoring
   namespace: default
 type: Opaque
 data:
@@ -83,7 +83,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: loki-k8smon-k8s-monitoring
+  name: loki-k8s-monitoring
   namespace: default
 type: Opaque
 data:
@@ -436,7 +436,7 @@ data:
     
     // Metrics Service
     remote.kubernetes.secret "metrics_service" {
-      name = "prometheus-k8smon-k8s-monitoring"
+      name = "prometheus-k8s-monitoring"
       namespace = "default"
     }
     
@@ -468,7 +468,7 @@ data:
     
     // Loki
     remote.kubernetes.secret "logs_service" {
-      name = "loki-k8smon-k8s-monitoring"
+      name = "loki-k8s-monitoring"
       namespace = "default"
     }
     loki.write "grafana_cloud_loki" {
@@ -592,7 +592,7 @@ data:
     
     // Loki
     remote.kubernetes.secret "logs_service" {
-      name = "loki-k8smon-k8s-monitoring"
+      name = "loki-k8s-monitoring"
       namespace = "default"
     }
     loki.write "grafana_cloud_loki" {
@@ -42813,13 +42813,13 @@ spec:
             - name: DB_BASIC_AUTH_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: grafana-agent-credentials
-                  key: prometheus_username
+                  name: prometheus-k8s-monitoring
+                  key: username
             - name: DB_BASIC_AUTH_PW
               valueFrom:
                 secretKeyRef:
-                  name: grafana-agent-credentials
-                  key: prometheus_password
+                  name: prometheus-k8s-monitoring
+                  key: password
             # Add any additional provided variables
             - name: CLOUD_PROVIDER_API_KEY
               value: "AIzaSyD29bGxmHAVEOBYtgd8sYM2gM2ekfxQX4U"
@@ -43297,7 +43297,7 @@ data:
     
     // Metrics Service
     remote.kubernetes.secret "metrics_service" {
-      name = "prometheus-k8smon-k8s-monitoring"
+      name = "prometheus-k8s-monitoring"
       namespace = "default"
     }
     
@@ -43329,7 +43329,7 @@ data:
     
     // Loki
     remote.kubernetes.secret "logs_service" {
-      name = "loki-k8smon-k8s-monitoring"
+      name = "loki-k8s-monitoring"
       namespace = "default"
     }
     loki.write "grafana_cloud_loki" {
@@ -43445,7 +43445,7 @@ data:
     
     // Loki
     remote.kubernetes.secret "logs_service" {
-      name = "loki-k8smon-k8s-monitoring"
+      name = "loki-k8s-monitoring"
       namespace = "default"
     }
     loki.write "grafana_cloud_loki" {
