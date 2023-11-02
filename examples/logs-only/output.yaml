@@ -23,7 +23,7 @@ metadata:
     app.kubernetes.io/version: "v0.37.4"
     app.kubernetes.io/managed-by: Helm
 ---
-# Source: k8s-monitoring/templates/credentials.yaml
+# Source: k8s-monitoring/templates/log-service-credentials.yaml
 apiVersion: v1
 kind: Secret
 metadata:

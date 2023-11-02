@@ -68,18 +68,7 @@ metadata:
     app.kubernetes.io/instance: k8smon
     app.kubernetes.io/version: "1.6.1"
 ---
-# Source: k8s-monitoring/templates/credentials.yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: prometheus-k8s-monitoring
-  namespace: default
-type: Opaque
-data:
-
-  host: "aHR0cHM6Ly9wcm9tZXRoZXVzLmV4YW1wbGUuY29t"
-  username: "MTIzNDU="
-  password: "SXQncyBhIHNlY3JldCB0byBldmVyeW9uZQ=="
+# Source: k8s-monitoring/templates/log-service-credentials.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -92,6 +81,19 @@ data:
   username: "MTIzNDU="
   password: "SXQncyBhIHNlY3JldCB0byBldmVyeW9uZQ=="
   tenantId: "MjAwMA=="
+---
+# Source: k8s-monitoring/templates/metrics-service-credentials.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: prometheus-k8s-monitoring
+  namespace: default
+type: Opaque
+data:
+
+  host: "aHR0cHM6Ly9wcm9tZXRoZXVzLmV4YW1wbGUuY29t"
+  username: "MTIzNDU="
+  password: "SXQncyBhIHNlY3JldCB0byBldmVyeW9uZQ=="
 ---
 # Source: k8s-monitoring/templates/grafana-agent-config.yaml
 apiVersion: v1

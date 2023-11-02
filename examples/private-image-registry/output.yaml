@@ -71,18 +71,7 @@ metadata:
 imagePullSecrets:  
   - name: my-registry-creds
 ---
-# Source: k8s-monitoring/templates/credentials.yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: prometheus-k8s-monitoring
-  namespace: default
-type: Opaque
-data:
-
-  host: "aHR0cHM6Ly9wcm9tZXRoZXVzLmV4YW1wbGUuY29t"
-  username: "MTIzNDU="
-  password: "SXQncyBhIHNlY3JldCB0byBldmVyeW9uZQ=="
+# Source: k8s-monitoring/templates/log-service-credentials.yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -92,6 +81,19 @@ type: Opaque
 data:
 
   host: "aHR0cHM6Ly9sb2tpLmV4YW1wbGUuY29t"
+  username: "MTIzNDU="
+  password: "SXQncyBhIHNlY3JldCB0byBldmVyeW9uZQ=="
+---
+# Source: k8s-monitoring/templates/metrics-service-credentials.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: prometheus-k8s-monitoring
+  namespace: default
+type: Opaque
+data:
+
+  host: "aHR0cHM6Ly9wcm9tZXRoZXVzLmV4YW1wbGUuY29t"
   username: "MTIzNDU="
   password: "SXQncyBhIHNlY3JldCB0byBldmVyeW9uZQ=="
 ---
