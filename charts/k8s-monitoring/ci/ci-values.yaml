@@ -58,7 +58,7 @@ opencost:
       username_key: username
       password_key: password
       external:
-        url: http://prometheus-server.prometheus.svc:80/api/v1
+        url: http://prometheus-server.prometheus.svc:80
 
 grafana-agent:
   agent:
