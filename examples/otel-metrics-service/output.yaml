@@ -516,6 +516,7 @@ data:
     loki.write "grafana_cloud_loki" {
       endpoint {
         url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+        tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
     
         basic_auth {
           username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
@@ -640,6 +641,7 @@ data:
     loki.write "grafana_cloud_loki" {
       endpoint {
         url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+        tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
     
         basic_auth {
           username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
@@ -42542,7 +42544,7 @@ spec:
       serviceAccountName: k8smon-grafana-agent-logs
       containers:
         - name: grafana-agent
-          image: docker.io/grafana/agent:latest
+          image: docker.io/grafana/agent:main
           imagePullPolicy: IfNotPresent
           args:
             - run
@@ -42901,7 +42903,7 @@ spec:
       serviceAccountName: k8smon-grafana-agent
       containers:
         - name: grafana-agent
-          image: docker.io/grafana/agent:latest
+          image: docker.io/grafana/agent:main
           imagePullPolicy: IfNotPresent
           args:
             - run
@@ -43417,6 +43419,7 @@ data:
     loki.write "grafana_cloud_loki" {
       endpoint {
         url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+        tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
     
         basic_auth {
           username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
@@ -43533,6 +43536,7 @@ data:
     loki.write "grafana_cloud_loki" {
       endpoint {
         url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+        tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
     
         basic_auth {
           username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
@@ -43686,7 +43690,7 @@ spec:
         kubernetes.io/os: linux
       containers:
         - name: grafana-agent
-          image: "docker.io/grafana/agent:latest"
+          image: "docker.io/grafana/agent:main"
           command:
           - bash
           - -ec

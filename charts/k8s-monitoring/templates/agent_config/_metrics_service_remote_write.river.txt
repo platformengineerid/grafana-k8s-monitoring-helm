@@ -3,9 +3,7 @@
 prometheus.remote_write "metrics_service" {
   endpoint {
     url = nonsensitive(remote.kubernetes.secret.metrics_service.data[{{ .hostKey | quote }}]) + "{{ .writeEndpoint }}"
-{{- if .tenantId }}
     headers = { "X-Scope-OrgID" = remote.kubernetes.secret.metrics_service.data[{{ .tenantIdKey | quote }}] }
-{{- end }}
 {{- if .proxyURL }}
     proxy_url = {{ .proxyURL | quote }}
 {{- end }}

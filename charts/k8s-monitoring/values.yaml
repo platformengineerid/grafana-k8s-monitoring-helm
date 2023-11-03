@@ -814,7 +814,7 @@ opencost:
 # See https://github.com/grafana/agent/tree/main/operations/helm/charts/grafana-agent for available values.
 # @ignored -- This skips including these values in README.md
 grafana-agent:
-  image: {tag: latest}
+  image: {tag: main}
   agent:
     clustering: {enabled: true}
 
@@ -850,7 +850,7 @@ grafana-agent:
 # See https://github.com/grafana/agent/tree/main/operations/helm/charts/grafana-agent for available values.
 # @ignored -- This skips including these values in README.md
 grafana-agent-logs:
-  image: {tag: latest}
+  image: {tag: main}
   agent:
     # This chart is creating the configuration, so the grafana-agent chart does
     # not need to.

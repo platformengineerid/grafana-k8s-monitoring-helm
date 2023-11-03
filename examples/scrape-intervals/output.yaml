@@ -424,6 +424,7 @@ data:
     prometheus.remote_write "metrics_service" {
       endpoint {
         url = nonsensitive(remote.kubernetes.secret.metrics_service.data["host"]) + "/api/prom/push"
+        headers = { "X-Scope-OrgID" = remote.kubernetes.secret.metrics_service.data["tenantId"] }
     
         basic_auth {
           username = nonsensitive(remote.kubernetes.secret.metrics_service.data["username"])
@@ -42473,7 +42474,7 @@ spec:
       serviceAccountName: k8smon-grafana-agent
       containers:
         - name: grafana-agent
-          image: docker.io/grafana/agent:latest
+          image: docker.io/grafana/agent:main
           imagePullPolicy: IfNotPresent
           args:
             - run
@@ -42922,6 +42923,7 @@ data:
     prometheus.remote_write "metrics_service" {
       endpoint {
         url = nonsensitive(remote.kubernetes.secret.metrics_service.data["host"]) + "/api/prom/push"
+        headers = { "X-Scope-OrgID" = remote.kubernetes.secret.metrics_service.data["tenantId"] }
     
         basic_auth {
           username = nonsensitive(remote.kubernetes.secret.metrics_service.data["username"])
@@ -43077,7 +43079,7 @@ spec:
         kubernetes.io/os: linux
       containers:
         - name: grafana-agent
-          image: "docker.io/grafana/agent:latest"
+          image: "docker.io/grafana/agent:main"
           command:
           - bash
           - -ec

@@ -345,6 +345,7 @@ prometheus.relabel "metrics_service" {
 prometheus.remote_write "metrics_service" {
   endpoint {
     url = nonsensitive(remote.kubernetes.secret.metrics_service.data["host"]) + "/api/prom/push"
+    headers = { "X-Scope-OrgID" = remote.kubernetes.secret.metrics_service.data["tenantId"] }
 
     basic_auth {
       username = nonsensitive(remote.kubernetes.secret.metrics_service.data["username"])
@@ -372,6 +373,7 @@ remote.kubernetes.secret "logs_service" {
 loki.write "grafana_cloud_loki" {
   endpoint {
     url = nonsensitive(remote.kubernetes.secret.logs_service.data["host"]) + "/loki/api/v1/push"
+    tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data["tenantId"])
 
     basic_auth {
       username = nonsensitive(remote.kubernetes.secret.logs_service.data["username"])
@@ -422,7 +424,7 @@ otelcol.processor.attributes "trace_attributes_processor" {
     action = "upsert"
   }
   output {
-    traces = [otelcol.exporter.otlp.tempo.input]
+    traces = [otelcol.exporter.otlp.traces_service.input]
   }
 }
 // Tempo
@@ -431,16 +433,16 @@ remote.kubernetes.secret "traces_service" {
   namespace = "default"
 }
 
-otelcol.auth.basic "tempo" {
+otelcol.auth.basic "traces_service" {
   username = nonsensitive(remote.kubernetes.secret.traces_service.data["username"])
   password = remote.kubernetes.secret.traces_service.data["password"]
 }
 
-otelcol.exporter.otlp "tempo" {
+otelcol.exporter.otlp "traces_service" {
   client {
     endpoint = nonsensitive(remote.kubernetes.secret.traces_service.data["host"])
 
-    auth = otelcol.auth.basic.tempo.handler
+    auth = otelcol.auth.basic.traces_service.handler
     headers = { "X-Scope-OrgID" = remote.kubernetes.secret.traces_service.data["tenantId"] }
   }
 }

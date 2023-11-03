@@ -9,9 +9,7 @@ remote.kubernetes.secret "logs_service" {
 loki.write "grafana_cloud_loki" {
   endpoint {
     url = nonsensitive(remote.kubernetes.secret.logs_service.data[{{ .hostKey | quote }}]) + "{{ .writeEndpoint }}"
-{{- if .tenantId }}
     tenant_id = nonsensitive(remote.kubernetes.secret.logs_service.data[{{ .tenantIdKey | quote }}])
-{{- end }}
 {{- if .proxyURL }}
     proxy_url = {{ .proxyURL | quote }}
 {{- end }}

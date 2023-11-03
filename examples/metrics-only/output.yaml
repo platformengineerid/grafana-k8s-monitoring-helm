@@ -42475,7 +42475,7 @@ spec:
       serviceAccountName: k8smon-grafana-agent
       containers:
         - name: grafana-agent
-          image: docker.io/grafana/agent:latest
+          image: docker.io/grafana/agent:main
           imagePullPolicy: IfNotPresent
           args:
             - run
@@ -43080,7 +43080,7 @@ spec:
         kubernetes.io/os: linux
       containers:
         - name: grafana-agent
-          image: "docker.io/grafana/agent:latest"
+          image: "docker.io/grafana/agent:main"
           command:
           - bash
           - -ec

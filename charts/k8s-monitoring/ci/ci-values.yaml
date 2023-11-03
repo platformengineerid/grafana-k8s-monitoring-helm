@@ -18,6 +18,7 @@ externalServices:
       password: lokipassword
   tempo:
     host: tempo.tempo.svc:4317
+    authMode: none
     tlsOptions: |-
       insecure             = true
       insecure_skip_verify = true
