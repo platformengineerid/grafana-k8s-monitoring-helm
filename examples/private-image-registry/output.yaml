@@ -42510,7 +42510,7 @@ spec:
         - name: my-registry-creds
       containers:
         - name: grafana-agent
-          image: my.registry.com/grafana/agent:main
+          image: my.registry.com/grafana/agent:v0.37.4
           imagePullPolicy: IfNotPresent
           args:
             - run
@@ -42877,7 +42877,7 @@ spec:
         - name: my-registry-creds
       containers:
         - name: grafana-agent
-          image: my.registry.com/grafana/agent:main
+          image: my.registry.com/grafana/agent:v0.37.4
           imagePullPolicy: IfNotPresent
           args:
             - run
@@ -43627,7 +43627,7 @@ spec:
         kubernetes.io/os: linux
       containers:
         - name: grafana-agent
-          image: "my.registry.com/grafana/agent:main"
+          image: "my.registry.com/grafana/agent:v0.37.4"
           command:
           - bash
           - -ec
