@@ -16,7 +16,7 @@ dependencies:
   version: 5.20.0
 - name: prometheus-node-exporter
   repository: https://prometheus-community.github.io/helm-charts
-  version: 4.36.0
+  version: 4.37.0
 - name: prometheus-operator-crds
   repository: https://prometheus-community.github.io/helm-charts
   version: 12.0.0
@@ -26,5 +26,5 @@ dependencies:
 - name: opencost
   repository: https://opencost.github.io/opencost-helm-chart
   version: 1.38.1
-digest: sha256:e6bd450f52b6222994f70feb55413a06f014255d4614aa86723cc51200a27f45
-generated: "2024-06-13T00:17:53.668505176Z"
+digest: sha256:f009615ce324288d89d2be6cc6879baf69acab60575fc1ecaa416b1a3e51a9f1
+generated: "2024-07-02T01:16:53.663521081Z"
